@@ -5,16 +5,17 @@ def androidx = [:]
 deps.androidx = androidx
 
 def di = [:]
-di.dagger2 = "com.google.dagger:dagger-android:2.20"
-di.android_processor = "com.google.dagger:dagger-android-processor:2.20"
-di.compiler = 'com.google.dagger:dagger-compiler:2.20'
+di.dagger = "com.google.dagger:dagger-android:2.18"
+di.compiler = 'com.google.dagger:dagger-compiler:2.18'
 deps.di = di
 
+def kotlin = [:]
+def kotlin_version = '1.3.60'
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+deps.kotlin = kotlin
 
-
-
-
-
+ext.deps = deps
 ext.addRepos = this.&addRepos
 
 
