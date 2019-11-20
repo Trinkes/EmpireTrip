@@ -1,0 +1,24 @@
+ext.deps = [:]
+
+def androidx = [:]
+
+deps.androidx = androidx
+
+def di = [:]
+di.dagger2 = "com.google.dagger:dagger-android:2.20"
+di.android_processor = "com.google.dagger:dagger-android-processor:2.20"
+di.compiler = 'com.google.dagger:dagger-compiler:2.20'
+deps.di = di
+
+
+
+
+
+
+ext.addRepos = this.&addRepos
+
+
+static def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+}
