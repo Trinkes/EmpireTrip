@@ -5,21 +5,23 @@ import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 internal class TripsTest {
   private lateinit var trips: Trips
   private lateinit var scheduler: TestScheduler
-  private val relay = BehaviorSubject.create<SpaceTrips>()
+  private val tripListTestRelay = BehaviorSubject.create<SpaceTripsResponse>()
+  private val tripTestRelay = BehaviorSubject.create<SpaceTripResponse>()
 
   @Before
   fun setUp() {
     scheduler = TestScheduler()
     val repository = object : TripsRepository {
-      override fun getSpaceTrips(): Observable<SpaceTrips> {
-        return relay
+      override fun getSpaceTrips(): Observable<SpaceTripsResponse> {
+        return tripListTestRelay
+      }
+
+      override fun getSpaceTrip(tripId: Int): Observable<SpaceTripResponse> {
+        return tripTestRelay
       }
     }
     trips = Trips(scheduler, repository)
@@ -30,8 +32,8 @@ internal class TripsTest {
     val tripsTest = trips.getSpaceTrips()
         .test()
 
-    val response = SpaceTrips(SpaceTrips.Status.OK, listOf(SpaceTrip(1)))
-    relay.onNext(response)
+    val response = SpaceTripsResponse(ResponseStatus.OK, listOf(SpaceTrip(1)))
+    tripListTestRelay.onNext(response)
     scheduler.triggerActions()
 
     tripsTest.assertValueCount(1)
@@ -45,8 +47,8 @@ internal class TripsTest {
     val tripsTest = trips.getSpaceTrips()
         .test()
 
-    val response = SpaceTrips(SpaceTrips.Status.ERROR, emptyList())
-    relay.onNext(response)
+    val response = SpaceTripsResponse(ResponseStatus.ERROR, emptyList())
+    tripListTestRelay.onNext(response)
     scheduler.triggerActions()
 
     tripsTest.assertValueCount(1)
@@ -56,5 +58,34 @@ internal class TripsTest {
 
   }
 
+  @Test
+  fun getSpaceTrip_OkResponse() {
+    val tripTest = trips.getSpaceTrip(1)
+        .test()
+
+    val spaceTripResponse = SpaceTripResponse(ResponseStatus.OK, SpaceTrip(1))
+    tripTestRelay.onNext(spaceTripResponse)
+    scheduler.triggerActions()
+
+    tripTest.assertValueCount(1)
+        .assertValue(spaceTripResponse)
+        .assertNoErrors()
+        .assertNotComplete()
+  }
+
+  @Test
+  fun getSpaceTrip_ErrorResponse() {
+    val tripTest = trips.getSpaceTrip(1)
+        .test()
+
+    val spaceTripResponse = SpaceTripResponse(ResponseStatus.ERROR, null)
+    tripTestRelay.onNext(spaceTripResponse)
+    scheduler.triggerActions()
+
+    tripTest.assertValueCount(1)
+        .assertValue(spaceTripResponse)
+        .assertNoErrors()
+        .assertNotComplete()
+  }
 
 }
