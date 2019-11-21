@@ -16,7 +16,7 @@ class ApiTripsResponseMapperTest {
   @Test
   fun mapTripsFromApiResponse_Success() {
     val spaceTripEntities = listOf(TripsApi.SpaceTripEntity(1))
-    val spaceTrips = SpaceTrips(SpaceTrips.Status.OK, listOf(SpaceTraveler(1)))
+    val spaceTrips = SpaceTrips(SpaceTrips.Status.OK, listOf(SpaceTrip(1)))
     Assert.assertEquals(spaceTrips, mapper.mapSuccess(spaceTripEntities))
   }
 

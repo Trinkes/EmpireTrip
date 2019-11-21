@@ -30,7 +30,7 @@ internal class TripsTest {
     val tripsTest = trips.getSpaceTrips()
         .test()
 
-    val response = SpaceTrips(SpaceTrips.Status.OK, listOf(SpaceTraveler(1)))
+    val response = SpaceTrips(SpaceTrips.Status.OK, listOf(SpaceTrip(1)))
     relay.onNext(response)
     scheduler.triggerActions()
 

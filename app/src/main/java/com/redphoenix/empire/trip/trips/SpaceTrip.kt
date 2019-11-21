@@ -1,3 +1,3 @@
 package com.redphoenix.empire.trip.trips
 
-data class SpaceTraveler(val id: Int)
+data class SpaceTrip(val id: Int)

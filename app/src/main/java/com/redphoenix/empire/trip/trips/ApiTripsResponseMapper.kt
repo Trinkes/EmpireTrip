@@ -4,7 +4,7 @@ import java.io.IOException
 
 class ApiTripsResponseMapper {
   fun mapSuccess(spaceTripEntities: List<TripsApi.SpaceTripEntity>): SpaceTrips {
-    val spaceTrips = spaceTripEntities.map { SpaceTraveler(it.id) }
+    val spaceTrips = spaceTripEntities.map { SpaceTrip(it.id) }
     return SpaceTrips(SpaceTrips.Status.OK, spaceTrips)
   }
 
