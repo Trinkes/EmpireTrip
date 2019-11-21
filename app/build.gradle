@@ -37,4 +37,7 @@ dependencies {
   implementation deps.di.dagger
   kapt deps.di.compiler
   implementation deps.rx.core
+  implementation deps.retrofit.core
+  implementation deps.retrofit.converter_gson
+  implementation deps.retrofit.rx_java2_adapter
 }

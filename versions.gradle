@@ -24,6 +24,13 @@ def rx = [:]
 rx.core = "io.reactivex.rxjava2:rxjava:2.2.14"
 deps.rx = rx
 
+def retrofit = [:]
+def retrofit_version = "2.3.0"
+retrofit.core = "com.squareup.retrofit2:retrofit:$retrofit_version"
+retrofit.converter_gson = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+retrofit.rx_java2_adapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+deps.retrofit = retrofit
+
 ext.deps = deps
 ext.addRepos = this.&addRepos
 
