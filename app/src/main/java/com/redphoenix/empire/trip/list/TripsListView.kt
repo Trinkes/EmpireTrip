@@ -10,7 +10,7 @@ interface TripsListView {
         val pilotName: String,
         val pilotAvatar: String,
         val pilotRating: Float,
-        val pickIpLocation: String,
+        val pickUpLocation: String,
         val dropOffLocation: String
     )
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Empire Trips</string>
+    <string name="item_list_arrow_content_description">Trip direction</string>
+    <string name="item_list_pilot_icon_content_description">Pilot photo</string>
 </resources>

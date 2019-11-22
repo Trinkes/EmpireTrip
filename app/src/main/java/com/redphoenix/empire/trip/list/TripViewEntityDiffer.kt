@@ -18,7 +18,7 @@ class TripViewEntityDiffer : DiffUtil.ItemCallback<TripsListView.TripViewEntity>
                 && oldItem.pilotName == newItem.pilotName
                 && oldItem.pilotAvatar == newItem.pilotAvatar
                 && oldItem.pilotRating == newItem.pilotRating
-                && oldItem.pickIpLocation == newItem.pickIpLocation
+                && oldItem.pickUpLocation == newItem.pickUpLocation
                 && oldItem.dropOffLocation == newItem.dropOffLocation
     }
 }

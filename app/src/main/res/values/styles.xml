@@ -8,4 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ItemListTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:capitalize">characters</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="ItemListBody">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/warm_grey</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <style name="StarsRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/stars_rating_bar</item>
+        <item name="android:minHeight">32dip</item>
+        <item name="android:maxHeight">32dip</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:numStars">5</item>
+    </style>
+
 </resources>

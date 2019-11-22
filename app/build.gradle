@@ -44,4 +44,5 @@ dependencies {
     implementation deps.androidx.constraintLayout
     implementation deps.androidx.recyclerView
     implementation deps.rx.android
+    implementation deps.imageLoader.glide
 }

@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    tools:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/pilot_avatar"
+        android:layout_width="@dimen/avatar_list_size"
+        android:layout_height="@dimen/avatar_list_size"
+        android:contentDescription="@string/item_list_pilot_icon_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pilot_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/empty" />
 
     <TextView
         android:id="@+id/pilot_name"
+        style="@style/ItemListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toTopOf="@id/pick_up_location"
+        app:layout_constraintStart_toEndOf="@id/pilot_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="ackbar" />
+
+    <TextView
+        android:id="@+id/pick_up_location"
+        style="@style/ItemListBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toBottomOf="@id/rating_bar"
+        app:layout_constraintEnd_toStartOf="@id/arrow"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/pilot_name"
+        app:layout_constraintTop_toBottomOf="@id/pilot_name"
+        tools:text="Naboo" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="@string/item_list_arrow_content_description"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/pick_up_location"
+        app:layout_constraintEnd_toStartOf="@id/drop_off_location"
+        app:layout_constraintStart_toEndOf="@id/pick_up_location"
+        app:layout_constraintTop_toTopOf="@id/pick_up_location" />
+
+    <TextView
+        android:id="@+id/drop_off_location"
+        style="@style/ItemListBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/pick_up_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/arrow"
+        app:layout_constraintTop_toTopOf="@id/pick_up_location"
+        tools:text="Coruscant" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@style/StarsRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:isIndicator="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/pilot_name"
+        app:layout_constraintTop_toBottomOf="@id/pick_up_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>
