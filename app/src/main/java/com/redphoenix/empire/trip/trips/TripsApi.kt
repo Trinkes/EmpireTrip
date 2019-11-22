@@ -5,10 +5,10 @@ import retrofit2.http.GET
 
 interface TripsApi {
 
-  @GET("trips")
-  fun getSpaceTrips(): Single<List<SpaceTripEntity>>
+    @GET("trips")
+    fun getSpaceTrips(): Single<List<SpaceTripEntity>>
 
-  fun getSpaceTrip(tripId: Int): Single<SpaceTripEntity>
+    fun getSpaceTrip(tripId: Int): Single<SpaceTripEntity>
 
-  data class SpaceTripEntity(val id: Int)
+    data class SpaceTripEntity(val id: Int)
 }

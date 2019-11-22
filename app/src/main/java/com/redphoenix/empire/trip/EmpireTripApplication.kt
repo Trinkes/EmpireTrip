@@ -6,15 +6,15 @@ import com.redphoenix.empire.trip.di.AppModule
 import com.redphoenix.empire.trip.di.DaggerAppComponent
 
 open class EmpireTripApplication : Application() {
-  lateinit var appComponent: AppComponent
+    lateinit var appComponent: AppComponent
 
-  override fun onCreate() {
-    super.onCreate()
-    appComponent =
-        DaggerAppComponent.builder()
-            .appModule(AppModule())
-            .build()
+    override fun onCreate() {
+        super.onCreate()
+        appComponent =
+            DaggerAppComponent.builder()
+                .appModule(AppModule())
+                .build()
 
-    appComponent.inject(this)
-  }
+        appComponent.inject(this)
+    }
 }

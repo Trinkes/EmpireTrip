@@ -4,44 +4,44 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 android {
-  compileSdkVersion 29
-  buildToolsVersion "29.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
 
-  defaultConfig {
-    applicationId "com.redphoenix.empire.trip"
-    minSdkVersion 16
-    targetSdkVersion 29
-    versionCode 1
-    versionName "1.0"
+    defaultConfig {
+        applicationId "com.redphoenix.empire.trip"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
 
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    buildConfigField 'String', 'BASE_HOST', project.BASE_HOST
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'BASE_HOST', project.BASE_HOST
     }
-  }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation deps.kotlin.stdlib
-  implementation 'androidx.appcompat:appcompat:1.1.0'
-  implementation 'androidx.core:core-ktx:1.1.0'
-  testImplementation deps.testing.mockito
-  testImplementation deps.testing.junit
-  androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-  implementation deps.di.dagger
-  kapt deps.di.compiler
-  implementation deps.rx.core
-  implementation deps.retrofit.core
-  implementation deps.retrofit.converterGson
-  implementation deps.retrofit.rxjava2Adapter
-  implementation deps.androidx.constraintLayout
-  implementation deps.androidx.recyclerView
-  implementation deps.rx.android
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.stdlib
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation deps.testing.mockito
+    testImplementation deps.testing.junit
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation deps.di.dagger
+    kapt deps.di.compiler
+    implementation deps.rx.core
+    implementation deps.retrofit.core
+    implementation deps.retrofit.converterGson
+    implementation deps.retrofit.rxjava2Adapter
+    implementation deps.androidx.constraintLayout
+    implementation deps.androidx.recyclerView
+    implementation deps.rx.android
 }

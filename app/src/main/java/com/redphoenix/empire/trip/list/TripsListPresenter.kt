@@ -11,22 +11,22 @@ class TripsListPresenter(
     private val viewScheduler: Scheduler,
     private val mapper: TripsViewMapper
 ) {
-  fun present() {
-    setupView()
-  }
-
-  private fun setupView() {
-    trips.getSpaceTrips()
-        .observeOn(viewScheduler)
-        .doOnNext { showTrips(it) }
-        .subscribe()
-  }
-
-  private fun showTrips(tripsResponse: SpaceTripsResponse) {
-    when (tripsResponse.status) {
-      ResponseStatus.OK -> view.showTrips(mapper.map(tripsResponse.trips))
-      ResponseStatus.ERROR -> view.showGenericError()
-      ResponseStatus.NO_NETWORK -> view.showNoNetworkError()
+    fun present() {
+        setupView()
     }
-  }
+
+    private fun setupView() {
+        trips.getSpaceTrips()
+            .observeOn(viewScheduler)
+            .doOnNext { showTrips(it) }
+            .subscribe()
+    }
+
+    private fun showTrips(tripsResponse: SpaceTripsResponse) {
+        when (tripsResponse.status) {
+            ResponseStatus.OK -> view.showTrips(mapper.map(tripsResponse.trips))
+            ResponseStatus.ERROR -> view.showGenericError()
+            ResponseStatus.NO_NETWORK -> view.showNoNetworkError()
+        }
+    }
 }

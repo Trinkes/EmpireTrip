@@ -8,6 +8,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
-  fun inject(context: EmpireTripApplication)
-  fun inject(fragment: TripsListFragment)
+    fun inject(context: EmpireTripApplication)
+    fun inject(fragment: TripsListFragment)
 }

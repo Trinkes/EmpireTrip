@@ -37,6 +37,6 @@ ext.deps = deps
 ext.addRepos = this.&addRepos
 
 static def addRepos(RepositoryHandler handler) {
-  handler.google()
-  handler.jcenter()
+    handler.google()
+    handler.jcenter()
 }
