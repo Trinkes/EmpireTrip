@@ -16,6 +16,11 @@ class TripsListPresenter(
     fun present(isCreatingView: Boolean) {
         handleTripsDataUpdate(isCreatingView)
         setupView()
+        handleTripClicks()
+    }
+
+    private fun handleTripClicks() {
+        disposables.add(view.getTripClicks().doOnNext { view.showTripDetails(it) }.subscribe())
     }
 
     private fun handleTripsDataUpdate(creatingView: Boolean) {

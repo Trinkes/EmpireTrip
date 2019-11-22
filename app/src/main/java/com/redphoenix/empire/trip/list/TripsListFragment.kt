@@ -11,9 +11,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redphoenix.empire.trip.EmpireTripApplication
+import com.redphoenix.empire.trip.MainActivityNavigator
 import com.redphoenix.empire.trip.R
+import com.redphoenix.empire.trip.components.getService
 import com.redphoenix.empire.trip.trips.Trips
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.trips_list_fragment.*
 import javax.inject.Inject
 
@@ -36,15 +40,28 @@ class TripsListFragment : Fragment(), TripsListView {
     private var adapter: ListTripsAdapter? = null
     private lateinit var presenter: TripsListPresenter
     private var viewRestoreState: Parcelable? = null
+    private var tripClicks: PublishSubject<Int> =
+        PublishSubject.create()
+    private lateinit var navigator: MainActivityNavigator
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as EmpireTripApplication).appComponent.inject(this)
+        navigator = getService()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = TripsListPresenter(this, trips, AndroidSchedulers.mainThread(), mapper)
+        adapter = ListTripsAdapter(differ, layoutInflater, tripClicks)
+    }
+
+    override fun getTripClicks(): Observable<Int> {
+        return tripClicks
+    }
+
+    override fun showTripDetails(tripId: Int) {
+        navigator.showTripDetails(tripId)
     }
 
     override fun onCreateView(
@@ -56,7 +73,6 @@ class TripsListFragment : Fragment(), TripsListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list.layoutManager = LinearLayoutManager(view.context)
-        adapter = ListTripsAdapter(differ, layoutInflater)
         list.adapter = adapter
         presenter.present(savedInstanceState == null)
     }

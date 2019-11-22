@@ -1,10 +1,14 @@
 package com.redphoenix.empire.trip.list
 
+import io.reactivex.Observable
+
 interface TripsListView {
     fun showTrips(trips: List<TripViewEntity>)
     fun showGenericError()
     fun showNoNetworkError()
     fun restoreTrips(trips: List<TripViewEntity>)
+    fun getTripClicks(): Observable<Int>
+    fun showTripDetails(tripId: Int)
 
     data class TripViewEntity(
         val id: Int,

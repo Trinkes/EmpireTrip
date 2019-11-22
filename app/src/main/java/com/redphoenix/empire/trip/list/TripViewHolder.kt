@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.redphoenix.empire.trip.BuildConfig
 import com.redphoenix.empire.trip.R
+import io.reactivex.subjects.PublishSubject
 
-class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class TripViewHolder(
+    itemView: View,
+    private val tripClicks: PublishSubject<Int>
+) : RecyclerView.ViewHolder(itemView) {
     private val pilotName: TextView = itemView.findViewById(R.id.pilot_name)
     private val pilotAvatar: ImageView = itemView.findViewById(R.id.pilot_avatar)
     private val pickUpLocation: TextView = itemView.findViewById(R.id.pick_up_location)
@@ -28,6 +32,7 @@ class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             rating.visibility = View.VISIBLE
         }
         rating.rating = item.pilotRating
+        itemView.setOnClickListener { tripClicks.onNext(item.id) }
     }
 
 }
