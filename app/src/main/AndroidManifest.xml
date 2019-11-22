@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.redphoenix.empire.trip">
 
+  <uses-permission android:name="android.permission.INTERNET" />
   <application
       android:name=".EmpireTripApplication"
       android:icon="@mipmap/ic_launcher"

@@ -15,6 +15,7 @@ android {
     versionName "1.0"
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    buildConfigField 'String', 'BASE_HOST', project.BASE_HOST
   }
 
   buildTypes {
@@ -42,4 +43,5 @@ dependencies {
   implementation deps.retrofit.rxjava2Adapter
   implementation deps.androidx.constraintLayout
   implementation deps.androidx.recyclerView
+  implementation deps.rx.android
 }

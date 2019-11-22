@@ -8,6 +8,7 @@ class NetworkTripsRepository(private val api: TripsApi,
   override fun getSpaceTrips(): Observable<SpaceTripsResponse> {
     return api.getSpaceTrips()
         .map { mapper.mapSuccess(it) }
+        .doOnError { it.printStackTrace() }
         .onErrorReturn { mapper.mapTripsError(it) }
         .toObservable()
   }
@@ -15,6 +16,7 @@ class NetworkTripsRepository(private val api: TripsApi,
   override fun getSpaceTrip(tripId: Int): Observable<SpaceTripResponse> {
     return api.getSpaceTrip(tripId)
         .map { mapper.mapSuccess(it) }
+        .doOnError { it.printStackTrace() }
         .onErrorReturn { mapper.mapTripError(it) }
         .toObservable()
   }
