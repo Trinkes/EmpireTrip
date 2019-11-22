@@ -4,6 +4,7 @@ interface TripsListView {
     fun showTrips(trips: List<TripViewEntity>)
     fun showGenericError()
     fun showNoNetworkError()
+    fun restoreTrips(trips: List<TripViewEntity>)
 
     data class TripViewEntity(
         val id: Int,

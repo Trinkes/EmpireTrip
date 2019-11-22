@@ -4,6 +4,7 @@ import com.redphoenix.empire.trip.trips.ResponseStatus
 import com.redphoenix.empire.trip.trips.SpaceTripsResponse
 import com.redphoenix.empire.trip.trips.Trips
 import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 
 class TripsListPresenter(
     private val view: TripsListView,
@@ -11,22 +12,43 @@ class TripsListPresenter(
     private val viewScheduler: Scheduler,
     private val mapper: TripsViewMapper
 ) {
-    fun present() {
+    private val disposables = CompositeDisposable()
+    fun present(isCreatingView: Boolean) {
+        handleTripsDataUpdate(isCreatingView)
         setupView()
     }
 
-    private fun setupView() {
-        trips.getSpaceTrips()
+    private fun handleTripsDataUpdate(creatingView: Boolean) {
+        disposables.add(trips.getSpaceTrips()
+            .skip(1)
             .observeOn(viewScheduler)
-            .doOnNext { showTrips(it) }
-            .subscribe()
+            .doOnNext { showTrips(it, creatingView) }
+            .subscribe())
     }
 
-    private fun showTrips(tripsResponse: SpaceTripsResponse) {
+    private fun setupView() {
+        disposables.add(trips.getSpaceTrips()
+            .take(1)
+            .observeOn(viewScheduler)
+            .doOnNext { showTrips(it, false) }
+            .subscribe())
+    }
+
+    private fun showTrips(tripsResponse: SpaceTripsResponse, isCreatingView: Boolean) {
         when (tripsResponse.status) {
-            ResponseStatus.OK -> view.showTrips(mapper.map(tripsResponse.trips))
+            ResponseStatus.OK -> {
+                if (isCreatingView) {
+                    view.showTrips(mapper.map(tripsResponse.trips))
+                } else {
+                    view.restoreTrips(mapper.map(tripsResponse.trips))
+                }
+            }
             ResponseStatus.ERROR -> view.showGenericError()
             ResponseStatus.NO_NETWORK -> view.showNoNetworkError()
         }
+    }
+
+    fun stop() {
+        disposables.clear()
     }
 }
