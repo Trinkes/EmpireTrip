@@ -8,7 +8,15 @@ class ApiTripsResponseMapper {
         return SpaceTripsResponse(ResponseStatus.OK, spaceTrips)
     }
 
-    private fun map(spaceTripEntity: TripsApi.SpaceTripEntity) = SpaceTrip(spaceTripEntity.id)
+    private fun map(spaceTripEntity: TripsApi.SpaceTripEntity) =
+        SpaceTrip(
+            spaceTripEntity.id,
+            spaceTripEntity.pilot.name,
+            spaceTripEntity.pilot.avatar,
+            spaceTripEntity.pilot.rating,
+            spaceTripEntity.pick_up.name,
+            spaceTripEntity.drop_off.name
+        )
 
     fun mapTripsError(error: Throwable): SpaceTripsResponse {
         return when (error) {

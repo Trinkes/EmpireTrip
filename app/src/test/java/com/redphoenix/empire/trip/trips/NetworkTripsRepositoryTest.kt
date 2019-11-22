@@ -16,6 +16,21 @@ class NetworkTripsRepositoryTest {
     lateinit var api: TripsApi
     private lateinit var repository: NetworkTripsRepository
 
+    private val pilotName = "pilot_name"
+    private val pilotAvatar = "avatar_url"
+    private val pilotRating = 2.3f
+    private val pickUpLocationName = "pick_up_location_name"
+    private val dropOffLocationName = "drop_off_location_name"
+    private val spaceTripEntity =
+        TripsApi.SpaceTripEntity(
+            1,
+            TripsApi.Pilot(pilotName, pilotAvatar, pilotRating),
+            TripsApi.Location(pickUpLocationName),
+            TripsApi.Location(dropOffLocationName)
+        )
+    private val spaceTrip =
+        SpaceTrip(1, pilotName, pilotAvatar, pilotRating, pickUpLocationName, dropOffLocationName)
+
     @Before
     fun setup() {
         repository = NetworkTripsRepository(api, ApiTripsResponseMapper())
@@ -23,12 +38,12 @@ class NetworkTripsRepositoryTest {
 
     @Test
     fun getSpaceTrips_Success() {
-        val spaceTripsResponse = listOf(TripsApi.SpaceTripEntity(1))
+        val spaceTripsResponse = listOf(spaceTripEntity)
         `when`(api.getSpaceTrips()).thenReturn(Single.just(spaceTripsResponse))
         val tripsTest = repository.getSpaceTrips()
             .test()
         tripsTest.awaitTerminalEvent()
-        tripsTest.assertValue(SpaceTripsResponse(ResponseStatus.OK, listOf(SpaceTrip(1))))
+        tripsTest.assertValue(SpaceTripsResponse(ResponseStatus.OK, listOf(spaceTrip)))
             .assertNoErrors()
     }
 
@@ -54,11 +69,11 @@ class NetworkTripsRepositoryTest {
 
     @Test
     fun getSpaceTrip_Success() {
-        `when`(api.getSpaceTrip(1)).thenReturn(Single.just(TripsApi.SpaceTripEntity(1)))
+        `when`(api.getSpaceTrip(1)).thenReturn(Single.just(spaceTripEntity))
         val tripsTest = repository.getSpaceTrip(1)
             .test()
         tripsTest.awaitTerminalEvent()
-        tripsTest.assertValue(SpaceTripResponse(ResponseStatus.OK, SpaceTrip(1)))
+        tripsTest.assertValue(SpaceTripResponse(ResponseStatus.OK, spaceTrip))
             .assertNoErrors()
     }
 

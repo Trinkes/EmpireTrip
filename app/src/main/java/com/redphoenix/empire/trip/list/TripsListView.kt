@@ -5,5 +5,12 @@ interface TripsListView {
     fun showGenericError()
     fun showNoNetworkError()
 
-    data class TripViewEntity(val id: Int)
+    data class TripViewEntity(
+        val id: Int,
+        val pilotName: String,
+        val pilotAvatar: String,
+        val pilotRating: Float,
+        val pickIpLocation: String,
+        val dropOffLocation: String
+    )
 }

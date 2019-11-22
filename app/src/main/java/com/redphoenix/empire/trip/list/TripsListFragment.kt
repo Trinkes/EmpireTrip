@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.R
 import com.redphoenix.empire.trip.trips.Trips
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.trips_list_fragment.*
 import javax.inject.Inject
 
 class TripsListFragment : Fragment(), TripsListView {
@@ -25,6 +27,10 @@ class TripsListFragment : Fragment(), TripsListView {
     lateinit var trips: Trips
     @Inject
     lateinit var mapper: TripsViewMapper
+    @Inject
+    lateinit var differ: TripViewEntityDiffer
+
+    lateinit var adapter: ListTripsAdapter
 
     private lateinit var presenter: TripsListPresenter
 
@@ -46,11 +52,15 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        list.layoutManager = LinearLayoutManager(view.context)
+        adapter = ListTripsAdapter(differ, layoutInflater)
+        list.adapter = adapter
         presenter.present()
     }
 
     override fun showTrips(trips: List<TripsListView.TripViewEntity>) {
         Log.d(TAG, "showTrips() called with: trips = [$trips]")
+        adapter.setTrips(trips)
     }
 
     override fun showGenericError() {

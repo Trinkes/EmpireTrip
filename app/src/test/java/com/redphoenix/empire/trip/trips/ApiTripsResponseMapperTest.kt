@@ -5,8 +5,23 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
+
 class ApiTripsResponseMapperTest {
     private lateinit var mapper: ApiTripsResponseMapper
+    private val pilotName = "pilot_name"
+    private val pilotAvatar = "avatar_url"
+    private val pilotRating = 2.3f
+    private val pickUpLocationName = "pick_up_location_name"
+    private val dropOffLocationName = "drop_off_location_name"
+    private val spaceTripEntity =
+        TripsApi.SpaceTripEntity(
+            1,
+            TripsApi.Pilot(pilotName, pilotAvatar, pilotRating),
+            TripsApi.Location(pickUpLocationName),
+            TripsApi.Location(dropOffLocationName)
+        )
+    private val spaceTrip =
+        SpaceTrip(1, pilotName, pilotAvatar, pilotRating, pickUpLocationName, dropOffLocationName)
 
     @Before
     fun setup() {
@@ -15,8 +30,8 @@ class ApiTripsResponseMapperTest {
 
     @Test
     fun mapTripsFromApiResponse_Success() {
-        val spaceTripEntities = listOf(TripsApi.SpaceTripEntity(1))
-        val spaceTrips = SpaceTripsResponse(ResponseStatus.OK, listOf(SpaceTrip(1)))
+        val spaceTripEntities = listOf(spaceTripEntity)
+        val spaceTrips = SpaceTripsResponse(ResponseStatus.OK, listOf(spaceTrip))
         Assert.assertEquals(spaceTrips, mapper.mapSuccess(spaceTripEntities))
     }
 
@@ -36,9 +51,8 @@ class ApiTripsResponseMapperTest {
 
     @Test
     fun mapTripFromApiResponse_Success() {
-        val spaceTripEntities = TripsApi.SpaceTripEntity(1)
-        val spaceTrips = SpaceTripResponse(ResponseStatus.OK, SpaceTrip(1))
-        Assert.assertEquals(spaceTrips, mapper.mapSuccess(spaceTripEntities))
+        val spaceTrips = SpaceTripResponse(ResponseStatus.OK, spaceTrip)
+        Assert.assertEquals(spaceTrips, mapper.mapSuccess(spaceTripEntity))
     }
 
     @Test
