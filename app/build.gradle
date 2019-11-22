@@ -38,6 +38,8 @@ dependencies {
   kapt deps.di.compiler
   implementation deps.rx.core
   implementation deps.retrofit.core
-  implementation deps.retrofit.converter_gson
-  implementation deps.retrofit.rx_java2_adapter
+  implementation deps.retrofit.converterGson
+  implementation deps.retrofit.rxjava2Adapter
+  implementation deps.androidx.constraintLayout
+  implementation deps.androidx.recyclerView
 }
