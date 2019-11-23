@@ -3,9 +3,10 @@ package com.redphoenix.empire.trip
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.redphoenix.empire.trip.details.TripDetailsFragment
+import com.redphoenix.empire.trip.details.TripDetailsNavigator
 import com.redphoenix.empire.trip.list.TripsListFragment
 
-class MainActivity : AppCompatActivity(), MainActivityNavigator {
+class MainActivity : AppCompatActivity(), TripsListNavigator, TripDetailsNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,6 +15,10 @@ class MainActivity : AppCompatActivity(), MainActivityNavigator {
                 .replace(R.id.container, TripsListFragment.newInstance())
                 .commit()
         }
+    }
+
+    override fun navigateBack() {
+        onBackPressed()
     }
 
     override fun showTripDetails(tripId: Int) {

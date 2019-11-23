@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redphoenix.empire.trip.EmpireTripApplication
-import com.redphoenix.empire.trip.MainActivityNavigator
 import com.redphoenix.empire.trip.R
+import com.redphoenix.empire.trip.TripsListNavigator
 import com.redphoenix.empire.trip.components.getService
 import com.redphoenix.empire.trip.trips.Trips
 import io.reactivex.Observable
@@ -44,7 +44,7 @@ class TripsListFragment : Fragment(), TripsListView {
     private var viewRestoreState: Parcelable? = null
     private var tripClicks: PublishSubject<Int> =
         PublishSubject.create()
-    private lateinit var navigator: MainActivityNavigator
+    private lateinit var navigator: TripsListNavigator
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

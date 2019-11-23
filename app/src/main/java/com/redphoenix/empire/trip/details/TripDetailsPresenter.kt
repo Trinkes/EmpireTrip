@@ -17,6 +17,7 @@ class TripDetailsPresenter(
 
     fun present(tripId: Int) {
         setupView(tripId)
+        handleUpNavigationClick()
     }
 
     private fun setupView(tripId: Int) {
@@ -27,6 +28,10 @@ class TripDetailsPresenter(
             }
             .subscribe())
 
+    }
+
+    private fun handleUpNavigationClick() {
+        disposables.add(view.getUpNavigationClicks().subscribe { view.navigateBack() })
     }
 
     private fun showTripDetails(tripResponse: SpaceTripResponse) {

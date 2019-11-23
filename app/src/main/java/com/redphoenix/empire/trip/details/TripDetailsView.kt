@@ -1,5 +1,7 @@
 package com.redphoenix.empire.trip.details
 
+import io.reactivex.Observable
+
 interface TripDetailsView {
     fun showTripDetails(
         pilotName: String,
@@ -15,5 +17,8 @@ interface TripDetailsView {
         tripDistanceUnit: String,
         tripDuration: String
     )
+
+    fun getUpNavigationClicks(): Observable<Any>
+    fun navigateBack()
 
 }

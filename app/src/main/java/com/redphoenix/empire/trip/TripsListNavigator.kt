@@ -1,5 +1,5 @@
 package com.redphoenix.empire.trip
 
-interface MainActivityNavigator {
+interface TripsListNavigator {
     fun showTripDetails(tripId: Int)
 }

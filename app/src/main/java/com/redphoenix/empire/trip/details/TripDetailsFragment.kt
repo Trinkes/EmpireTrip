@@ -12,8 +12,11 @@ import com.redphoenix.empire.trip.BuildConfig
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.R
 import com.redphoenix.empire.trip.components.ElapseTimeFormatter
+import com.redphoenix.empire.trip.components.getService
 import com.redphoenix.empire.trip.trips.Trips
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.trip_details_fragment.*
 import kotlinx.android.synthetic.main.trip_details_toolbar.*
 import java.text.NumberFormat
@@ -38,11 +41,15 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
     lateinit var timeFormatter: SimpleDateFormat
     @Inject
     lateinit var elapseTimeFormatter: ElapseTimeFormatter
+    private var upNavigationClicks: PublishSubject<Any> =
+        PublishSubject.create()
+    private lateinit var navigator: TripDetailsNavigator
 
     private lateinit var presenter: TripDetailsPresenter
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as EmpireTripApplication).appComponent.inject(this)
+        navigator = getService()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +69,15 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.present(arguments!!.getInt(TRIP_ID_KEY))
+        toolbar.setNavigationOnClickListener { upNavigationClicks.onNext(Any()) }
+    }
+
+    override fun getUpNavigationClicks(): Observable<Any> {
+        return upNavigationClicks
+    }
+
+    override fun navigateBack() {
+        navigator.navigateBack()
     }
 
     override fun showTripDetails(
