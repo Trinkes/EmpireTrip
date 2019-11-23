@@ -12,14 +12,6 @@ internal class TripsTest {
     private val tripListTestRelay = BehaviorSubject.create<SpaceTripsResponse>()
     private val tripTestRelay = BehaviorSubject.create<SpaceTripResponse>()
 
-    private val pilotName = "pilot_name"
-    private val pilotAvatar = "avatar_url"
-    private val pilotRating = 2.3f
-    private val pickUpLocationName = "pick_up_location_name"
-    private val dropOffLocationName = "drop_off_location_name"
-    private val spaceTrip =
-        SpaceTrip(1, pilotName, pilotAvatar, pilotRating, pickUpLocationName, dropOffLocationName)
-
     @Before
     fun setUp() {
         scheduler = TestScheduler()

@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/pilot_name"
-        style="@style/ItemListTitle"
+        style="@style/WhiteTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

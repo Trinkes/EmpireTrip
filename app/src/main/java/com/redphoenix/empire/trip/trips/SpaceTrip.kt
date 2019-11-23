@@ -6,5 +6,9 @@ data class SpaceTrip(
     val pilotAvatar: String,
     val pilotRating: Float,
     val pickupLocation: String,
-    val dropOffLocation: String
+    val pickupTime: Long,
+    val pickupLocationIcon: String,
+    val dropOffLocation: String,
+    val dropOffLocationIcon: String,
+    val dropOffTime: Long
 )

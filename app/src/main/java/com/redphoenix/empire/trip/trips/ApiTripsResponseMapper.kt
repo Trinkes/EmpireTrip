@@ -15,7 +15,11 @@ class ApiTripsResponseMapper {
             spaceTripEntity.pilot.avatar,
             spaceTripEntity.pilot.rating,
             spaceTripEntity.pick_up.name,
-            spaceTripEntity.drop_off.name
+            spaceTripEntity.pick_up.date.time,
+            spaceTripEntity.pick_up.picture,
+            spaceTripEntity.drop_off.name,
+            spaceTripEntity.drop_off.picture,
+            spaceTripEntity.drop_off.date.time
         )
 
     fun mapTripsError(error: Throwable): SpaceTripsResponse {

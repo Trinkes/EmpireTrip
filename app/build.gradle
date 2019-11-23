@@ -45,4 +45,5 @@ dependencies {
     implementation deps.androidx.recyclerView
     implementation deps.rx.android
     implementation deps.imageLoader.glide
+    implementation deps.material.appBar
 }

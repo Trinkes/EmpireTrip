@@ -16,21 +16,6 @@ class NetworkTripsRepositoryTest {
     lateinit var api: TripsApi
     private lateinit var repository: NetworkTripsRepository
 
-    private val pilotName = "pilot_name"
-    private val pilotAvatar = "avatar_url"
-    private val pilotRating = 2.3f
-    private val pickUpLocationName = "pick_up_location_name"
-    private val dropOffLocationName = "drop_off_location_name"
-    private val spaceTripEntity =
-        TripsApi.SpaceTripEntity(
-            1,
-            TripsApi.Pilot(pilotName, pilotAvatar, pilotRating),
-            TripsApi.Location(pickUpLocationName),
-            TripsApi.Location(dropOffLocationName)
-        )
-    private val spaceTrip =
-        SpaceTrip(1, pilotName, pilotAvatar, pilotRating, pickUpLocationName, dropOffLocationName)
-
     @Before
     fun setup() {
         repository = NetworkTripsRepository(api, ApiTripsResponseMapper())

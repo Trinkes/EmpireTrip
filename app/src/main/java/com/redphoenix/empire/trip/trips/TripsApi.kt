@@ -2,13 +2,16 @@ package com.redphoenix.empire.trip.trips
 
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
+import java.util.*
 
 interface TripsApi {
 
     @GET("trips")
     fun getSpaceTrips(): Single<List<SpaceTripEntity>>
 
-    fun getSpaceTrip(tripId: Int): Single<SpaceTripEntity>
+    @GET("trips/{tripId}")
+    fun getSpaceTrip(@Path("tripId") tripId: Int): Single<SpaceTripEntity>
 
     data class SpaceTripEntity(
         val id: Int, val pilot: Pilot,
@@ -22,5 +25,5 @@ interface TripsApi {
         val rating: Float
     )
 
-    data class Location(val name: String)
+    data class Location(val name: String, val date: Date, val picture: String)
 }
