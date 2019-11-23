@@ -46,6 +46,7 @@ class TripsListFragment : Fragment(), TripsListView {
     private var tripClicks: PublishSubject<Int> =
         PublishSubject.create()
     private lateinit var navigator: TripsListNavigator
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -75,7 +76,7 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(view.context)
+        layoutManager = LinearLayoutManager(view.context)
         list.layoutManager = layoutManager
         list.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
@@ -92,14 +93,12 @@ class TripsListFragment : Fragment(), TripsListView {
     override fun restoreTrips(trips: List<TripsListView.TripViewEntity>) {
         adapter!!.setTrips(trips)
         showView(ViewsGroup.LIST_VIEW)
-        list.layoutManager!!.onRestoreInstanceState(viewRestoreState)
+        layoutManager.onRestoreInstanceState(viewRestoreState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (list != null) {
-            outState.putParcelable(STATE_KEY, list.layoutManager!!.onSaveInstanceState())
-        }
+        outState.putParcelable(STATE_KEY, layoutManager.onSaveInstanceState())
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
