@@ -8,7 +8,18 @@
 
     <include layout="@layout/fragment_trip_details_toolbar" />
 
+    <include
+        android:id="@+id/generic_error_layout"
+        layout="@layout/generic_error_layout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/network_error_layout"
+        layout="@layout/network_error_layout"
+        android:visibility="gone" />
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/trip_details_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.jakewharton.rxbinding2.view.RxView
 import com.redphoenix.empire.trip.BuildConfig
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.R
@@ -19,6 +20,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_trip_details.*
 import kotlinx.android.synthetic.main.fragment_trip_details_toolbar.*
+import kotlinx.android.synthetic.main.generic_error_layout.*
+import kotlinx.android.synthetic.main.network_error_layout.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -80,6 +83,14 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
         navigator.navigateBack()
     }
 
+    override fun showGenericError() {
+        showView(ViewsGroup.GENERIC_ERROR_VIEW)
+    }
+
+    override fun showNetworkError() {
+        showView(ViewsGroup.NETWORK_ERROR_VIEW)
+    }
+
     override fun showTripDetails(
         pilotName: String,
         pilotAvatar: String,
@@ -124,11 +135,44 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
                 tripDistanceUnit
             )
         fragment_details_duration.text = tripDuration
-
+        showView(ViewsGroup.TRIP_DETAILS_VIEW)
     }
 
     override fun onDestroyView() {
         presenter.stop()
         super.onDestroyView()
+    }
+
+    private fun showView(view: ViewsGroup) {
+        when (view) {
+            ViewsGroup.TRIP_DETAILS_VIEW -> {
+                trip_details_view.visibility = View.VISIBLE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.GONE
+            }
+
+            ViewsGroup.GENERIC_ERROR_VIEW -> {
+                trip_details_view.visibility = View.GONE
+                generic_error_layout.visibility = View.VISIBLE
+                network_error_layout.visibility = View.GONE
+            }
+            ViewsGroup.NETWORK_ERROR_VIEW -> {
+                trip_details_view.visibility = View.GONE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun getRetryClick(): Observable<Any> {
+        return Observable.merge(
+            RxView.clicks(generic_error_retry_button),
+            RxView.clicks(no_network_retry_button)
+        )
+
+    }
+
+    enum class ViewsGroup {
+        TRIP_DETAILS_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW
     }
 }

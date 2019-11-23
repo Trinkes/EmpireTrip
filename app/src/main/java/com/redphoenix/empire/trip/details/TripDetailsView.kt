@@ -20,5 +20,8 @@ interface TripDetailsView {
 
     fun getUpNavigationClicks(): Observable<Any>
     fun navigateBack()
+    fun showGenericError()
+    fun showNetworkError()
+    fun getRetryClick(): Observable<Any>
 
 }

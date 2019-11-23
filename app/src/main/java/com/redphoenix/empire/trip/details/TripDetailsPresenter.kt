@@ -4,6 +4,7 @@ import com.redphoenix.empire.trip.components.ElapseTimeFormatter
 import com.redphoenix.empire.trip.trips.ResponseStatus
 import com.redphoenix.empire.trip.trips.SpaceTripResponse
 import com.redphoenix.empire.trip.trips.Trips
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -18,16 +19,27 @@ class TripDetailsPresenter(
     fun present(tripId: Int) {
         setupView(tripId)
         handleUpNavigationClick()
+        handleRetryClick(tripId)
+    }
+
+    private fun handleRetryClick(tripId: Int) {
+        disposables.add(view.getRetryClick().flatMap { fillView(tripId) }.subscribe())
     }
 
     private fun setupView(tripId: Int) {
-        disposables.add(trips.getSpaceTrip(tripId)
+        disposables.add(
+            fillView(tripId)
+                .subscribe()
+        )
+
+    }
+
+    private fun fillView(tripId: Int): Observable<SpaceTripResponse> {
+        return trips.getSpaceTrip(tripId)
             .observeOn(viewScheduler)
             .doOnNext {
                 showTripDetails(it)
             }
-            .subscribe())
-
     }
 
     private fun handleUpNavigationClick() {
@@ -50,8 +62,8 @@ class TripDetailsPresenter(
                 tripResponse.trip.TripDistanceUnit,
                 elapseTimeFormatter.format(tripResponse.trip.duration)
             )
-            ResponseStatus.ERROR -> TODO()
-            ResponseStatus.NO_NETWORK -> TODO()
+            ResponseStatus.ERROR -> view.showGenericError()
+            ResponseStatus.NO_NETWORK -> view.showNetworkError()
         }
     }
 
