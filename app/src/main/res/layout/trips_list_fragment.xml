@@ -12,6 +12,16 @@
         app:title="Last Trips"
         app:titleTextColor="@color/white" />
 
+    <include
+        android:id="@+id/generic_error_layout"
+        layout="@layout/generic_error_layout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/network_error_layout"
+        layout="@layout/network_error_layout"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"

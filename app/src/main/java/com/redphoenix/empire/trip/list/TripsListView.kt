@@ -9,6 +9,7 @@ interface TripsListView {
     fun restoreTrips(trips: List<TripViewEntity>)
     fun getTripClicks(): Observable<Int>
     fun showTripDetails(tripId: Int)
+    fun getRetryClicks(): Observable<Any>
 
     data class TripViewEntity(
         val id: Int,

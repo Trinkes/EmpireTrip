@@ -3,6 +3,7 @@ package com.redphoenix.empire.trip.list
 import com.redphoenix.empire.trip.trips.ResponseStatus
 import com.redphoenix.empire.trip.trips.SpaceTripsResponse
 import com.redphoenix.empire.trip.trips.Trips
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -14,29 +15,37 @@ class TripsListPresenter(
 ) {
     private val disposables = CompositeDisposable()
     fun present(isCreatingView: Boolean) {
-        handleTripsDataUpdate(isCreatingView)
-        setupView()
+        handleTripsDataUpdate()
+        setupView(isCreatingView)
         handleTripClicks()
+        handleRetryClick()
+    }
+
+    private fun handleRetryClick() {
+        disposables.add(view.getRetryClicks().flatMap { fillView(false) }.subscribe())
     }
 
     private fun handleTripClicks() {
         disposables.add(view.getTripClicks().doOnNext { view.showTripDetails(it) }.subscribe())
     }
 
-    private fun handleTripsDataUpdate(creatingView: Boolean) {
+    private fun handleTripsDataUpdate() {
         disposables.add(trips.getSpaceTrips()
             .skip(1)
             .observeOn(viewScheduler)
-            .doOnNext { showTrips(it, creatingView) }
+            .doOnNext { showTrips(it, false) }
             .subscribe())
     }
 
-    private fun setupView() {
-        disposables.add(trips.getSpaceTrips()
+    private fun setupView(isCreatingView: Boolean) {
+        disposables.add(fillView(isCreatingView).subscribe())
+    }
+
+    private fun fillView(isCreatingView: Boolean): Observable<SpaceTripsResponse> {
+        return trips.getSpaceTrips()
             .take(1)
             .observeOn(viewScheduler)
-            .doOnNext { showTrips(it, false) }
-            .subscribe())
+            .doOnNext { showTrips(it, isCreatingView) }
     }
 
     private fun showTrips(tripsResponse: SpaceTripsResponse, isCreatingView: Boolean) {

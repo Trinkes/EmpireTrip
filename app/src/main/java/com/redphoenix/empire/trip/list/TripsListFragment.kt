@@ -3,15 +3,14 @@ package com.redphoenix.empire.trip.list
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding2.view.RxView
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.R
 import com.redphoenix.empire.trip.TripsListNavigator
@@ -20,6 +19,8 @@ import com.redphoenix.empire.trip.trips.Trips
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.generic_error_layout.*
+import kotlinx.android.synthetic.main.network_error_layout.*
 import kotlinx.android.synthetic.main.trips_list_fragment.*
 import javax.inject.Inject
 
@@ -90,6 +91,7 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun restoreTrips(trips: List<TripsListView.TripViewEntity>) {
         adapter!!.setTrips(trips)
+        showView(ViewsGroup.LIST_VIEW)
         list.layoutManager!!.onRestoreInstanceState(viewRestoreState)
     }
 
@@ -119,16 +121,47 @@ class TripsListFragment : Fragment(), TripsListView {
     }
 
     override fun showTrips(trips: List<TripsListView.TripViewEntity>) {
+        showView(ViewsGroup.LIST_VIEW)
         adapter!!.setTrips(trips)
     }
 
+    override fun getRetryClicks(): Observable<Any> {
+        return Observable.merge(
+            RxView.clicks(no_network_retry_button),
+            RxView.clicks(generic_error_retry_button)
+        )
+    }
+
     override fun showGenericError() {
-        Toast.makeText(context, R.string.generic_error, Toast.LENGTH_SHORT).show()
-        Log.d(TAG, "showGenericError() called")
+        showView(ViewsGroup.GENERIC_ERROR_VIEW)
     }
 
     override fun showNoNetworkError() {
-        Toast.makeText(context, R.string.no_network_error, Toast.LENGTH_SHORT).show()
-        Log.d(TAG, "showNoNetworkError() called")
+        showView(ViewsGroup.NETWORK_ERROR_VIEW)
+    }
+
+    private fun showView(view: ViewsGroup) {
+        when (view) {
+            ViewsGroup.LIST_VIEW -> {
+                list.visibility = View.VISIBLE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.GONE
+            }
+
+            ViewsGroup.GENERIC_ERROR_VIEW -> {
+                list.visibility = View.GONE
+                generic_error_layout.visibility = View.VISIBLE
+                network_error_layout.visibility = View.GONE
+            }
+            ViewsGroup.NETWORK_ERROR_VIEW -> {
+                list.visibility = View.GONE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    enum class ViewsGroup {
+        LIST_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW
     }
 }
