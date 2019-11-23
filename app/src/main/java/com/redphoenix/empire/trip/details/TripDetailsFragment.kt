@@ -17,8 +17,8 @@ import com.redphoenix.empire.trip.trips.Trips
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.trip_details_fragment.*
-import kotlinx.android.synthetic.main.trip_details_toolbar.*
+import kotlinx.android.synthetic.main.fragment_trip_details.*
+import kotlinx.android.synthetic.main.fragment_trip_details_toolbar.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -63,7 +63,7 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.trip_details_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_trip_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

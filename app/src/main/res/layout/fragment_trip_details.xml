@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <include layout="@layout/trip_details_toolbar" />
+    <include layout="@layout/fragment_trip_details_toolbar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -187,11 +187,11 @@
                 android:layout_marginRight="@dimen/medium_margin"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/fragment_details_distance_number"
                 app:layout_constraintEnd_toStartOf="@id/fragment_details_vertical_separator"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@id/fragment_details_pilot_avatar"
-                app:layout_constraintTop_toBottomOf="@id/fragment_details_distance_label" />
+                app:layout_constraintTop_toBottomOf="@id/fragment_details_distance_label"
+                tools:text="@string/fragment_details_distance_number" />
 
             <TextView
                 style="@style/ItemListBody"
