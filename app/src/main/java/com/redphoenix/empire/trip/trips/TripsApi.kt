@@ -14,9 +14,12 @@ interface TripsApi {
     fun getSpaceTrip(@Path("tripId") tripId: Int): Single<SpaceTripEntity>
 
     data class SpaceTripEntity(
-        val id: Int, val pilot: Pilot,
+        val id: Int,
+        val pilot: Pilot,
         val pick_up: Location,
-        val drop_off: Location
+        val drop_off: Location,
+        val distance: Distance,
+        val duration: Long
     )
 
     data class Pilot(
@@ -26,4 +29,6 @@ interface TripsApi {
     )
 
     data class Location(val name: String, val date: Date, val picture: String)
+
+    data class Distance(val value: Long, val unit: String)
 }

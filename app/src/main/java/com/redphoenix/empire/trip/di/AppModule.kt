@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import com.google.gson.Gson
 import com.redphoenix.empire.trip.BuildConfig
+import com.redphoenix.empire.trip.components.ElapseTimeFormatter
 import com.redphoenix.empire.trip.list.TripViewEntityDiffer
 import com.redphoenix.empire.trip.list.TripsViewMapper
 import com.redphoenix.empire.trip.network.AcceptedDataTypeInterceptor
@@ -20,6 +21,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -77,14 +79,25 @@ class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun providesTimeFormatter(): SimpleDateFormat {
-        val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    fun providesTimeFormatter(locale: Locale): SimpleDateFormat {
+        return SimpleDateFormat("HH:mm a", locale)
+
+    }
+
+    @Provides
+    @Singleton
+    fun providesElapseTimeFormatter(locale: Locale): ElapseTimeFormatter {
+        return ElapseTimeFormatter(SimpleDateFormat("HH:mm:ss", locale))
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocale(): Locale {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             context.resources.configuration.locales.get(0)
         } else {
             @Suppress("DEPRECATION")
             context.resources.configuration.locale
         }
-        return SimpleDateFormat("HH:mm a", locale)
-
     }
 }

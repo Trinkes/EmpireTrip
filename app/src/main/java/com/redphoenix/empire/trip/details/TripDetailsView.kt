@@ -10,7 +10,10 @@ interface TripDetailsView {
         pickupLocationIcon: String,
         dropOffLocation: String,
         dropOffTime: Long,
-        dropOffLocationIcon: String
+        dropOffLocationIcon: String,
+        tripDistance: Long,
+        tripDistanceUnit: String,
+        tripDuration: String
     )
 
 }

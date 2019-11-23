@@ -10,5 +10,8 @@ data class SpaceTrip(
     val pickupLocationIcon: String,
     val dropOffLocation: String,
     val dropOffLocationIcon: String,
-    val dropOffTime: Long
+    val dropOffTime: Long,
+    val tripDistance: Long,
+    val TripDistanceUnit: String,
+    val duration: Long
 )
