@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.MainActivityNavigator
@@ -72,8 +74,17 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list.layoutManager = LinearLayoutManager(view.context)
+        val layoutManager = LinearLayoutManager(view.context)
+        list.layoutManager = layoutManager
         list.adapter = adapter
+        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
+        dividerItemDecoration.setDrawable(
+            ContextCompat.getDrawable(
+                view.context,
+                R.drawable.center
+            )!!
+        )
+        list.addItemDecoration(dividerItemDecoration)
         presenter.present(savedInstanceState == null)
     }
 
@@ -84,7 +95,9 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(STATE_KEY, list.layoutManager!!.onSaveInstanceState())
+        if (list != null) {
+            outState.putParcelable(STATE_KEY, list.layoutManager!!.onSaveInstanceState())
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
