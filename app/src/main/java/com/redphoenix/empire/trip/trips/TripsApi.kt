@@ -22,7 +22,7 @@ interface TripsApi {
     data class Pilot(
         val name: String,
         val avatar: String,
-        val rating: Float
+        val rating: Float?
     )
 
     data class Location(val name: String, val date: Date, val picture: String)

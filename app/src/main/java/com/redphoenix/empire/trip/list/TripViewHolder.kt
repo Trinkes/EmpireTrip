@@ -26,12 +26,13 @@ class TripViewHolder(
         dropOffLocation.text = item.dropOffLocation
         Glide.with(pilotAvatar).load("${BuildConfig.BASE_HOST}${item.pilotAvatar}")
             .into(pilotAvatar)
-        if (item.pilotRating == 0f) {
+        if (item.pilotRating == null) {
             rating.visibility = View.GONE
         } else {
             rating.visibility = View.VISIBLE
+            rating.rating = item.pilotRating
         }
-        rating.rating = item.pilotRating
+
         itemView.setOnClickListener { tripClicks.onNext(item.id) }
     }
 

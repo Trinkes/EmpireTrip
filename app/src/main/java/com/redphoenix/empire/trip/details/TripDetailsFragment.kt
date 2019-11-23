@@ -1,7 +1,6 @@
 package com.redphoenix.empire.trip.details
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +31,8 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
 
     @Inject
     lateinit var trips: Trips
+    @Inject
+    lateinit var timeFormatter: SimpleDateFormat
 
     private lateinit var presenter: TripDetailsPresenter
     override fun onAttach(context: Context) {
@@ -60,7 +61,7 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
     override fun showTripDetails(
         pilotName: String,
         pilotAvatar: String,
-        pilotRating: Float,
+        pilotRating: Float?,
         pickupLocation: String,
         pickUpTime: Long,
         pickupLocationIcon: String,
@@ -80,18 +81,15 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
         fragment_details_pilot_name.text = pilotName
         fragment_details_pick_up_location_name.text = pickupLocation
         fragment_details_drop_off_location_name.text = dropOffLocation
-        val dateFormat = SimpleDateFormat("HH:mm a", getCurrentLocale())
-        fragment_details_pick_up_time.text = dateFormat.format(Date(pickUpTime))
-        fragment_details_drop_off_time.text = dateFormat.format(Date(dropOffTime))
-
-    }
-
-    private fun getCurrentLocale(): Locale {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context!!.resources.configuration.locales.get(0)
+        fragment_details_pick_up_time.text = timeFormatter.format(Date(pickUpTime))
+        fragment_details_drop_off_time.text = timeFormatter.format(Date(dropOffTime))
+        if (pilotRating == null) {
+            fragment_details_pilot_no_rating.visibility = View.VISIBLE
+            fragment_details_pilot_rating.visibility = View.GONE
         } else {
-            @Suppress("DEPRECATION")
-            context!!.resources.configuration.locale
+            fragment_details_pilot_rating.rating = pilotRating
+            fragment_details_pilot_no_rating.visibility = View.GONE
+            fragment_details_pilot_rating.visibility = View.VISIBLE
         }
     }
 

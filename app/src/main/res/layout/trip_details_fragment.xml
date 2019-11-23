@@ -209,12 +209,28 @@
                 app:layout_constraintTop_toBottomOf="@id/fragment_details_distance" />
 
             <TextView
+                android:id="@+id/fragment_details_pilot_no_rating"
                 style="@style/ItemListBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:paddingBottom="36dp"
                 android:text="@string/fragment_details_no_rating_label"
                 android:textAllCaps="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/fragment_details_pilot_avatar"
+                app:layout_constraintTop_toBottomOf="@id/fragment_details_rating_label" />
+
+            <RatingBar
+                android:id="@+id/fragment_details_pilot_rating"
+                style="@style/StarsRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:paddingBottom="@dimen/large_margin"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@id/fragment_details_pilot_avatar"
                 app:layout_constraintTop_toBottomOf="@id/fragment_details_rating_label" />
         </androidx.constraintlayout.widget.ConstraintLayout>

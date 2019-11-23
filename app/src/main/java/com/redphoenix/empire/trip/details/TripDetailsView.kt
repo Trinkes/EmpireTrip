@@ -4,7 +4,7 @@ interface TripDetailsView {
     fun showTripDetails(
         pilotName: String,
         pilotAvatar: String,
-        pilotRating: Float,
+        pilotRating: Float?,
         pickupLocation: String,
         pickUpTime: Long,
         pickupLocationIcon: String,

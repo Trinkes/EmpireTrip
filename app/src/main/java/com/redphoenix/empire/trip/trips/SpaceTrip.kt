@@ -4,7 +4,7 @@ data class SpaceTrip(
     val id: Int,
     val pilotName: String,
     val pilotAvatar: String,
-    val pilotRating: Float,
+    val pilotRating: Float?,
     val pickupLocation: String,
     val pickupTime: Long,
     val pickupLocationIcon: String,

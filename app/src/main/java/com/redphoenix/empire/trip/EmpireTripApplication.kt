@@ -12,7 +12,7 @@ open class EmpireTripApplication : Application() {
         super.onCreate()
         appComponent =
             DaggerAppComponent.builder()
-                .appModule(AppModule())
+                .appModule(AppModule(this))
                 .build()
 
         appComponent.inject(this)
