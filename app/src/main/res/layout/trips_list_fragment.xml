@@ -13,6 +13,11 @@
         app:titleTextColor="@color/white" />
 
     <include
+        android:id="@+id/loading_layout"
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+
+    <include
         android:id="@+id/generic_error_layout"
         layout="@layout/generic_error_layout"
         android:visibility="gone" />
@@ -25,5 +30,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </LinearLayout>

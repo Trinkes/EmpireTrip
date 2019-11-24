@@ -14,15 +14,15 @@ class TripsListPresenter(
     private val mapper: TripsViewMapper
 ) {
     private val disposables = CompositeDisposable()
-    fun present(isCreatingView: Boolean) {
+    fun present() {
         handleTripsDataUpdate()
-        setupView(isCreatingView)
+        setupView()
         handleTripClicks()
         handleRetryClick()
     }
 
     private fun handleRetryClick() {
-        disposables.add(view.getRetryClicks().flatMap { fillView(false) }.subscribe())
+        disposables.add(view.getRetryClicks().flatMap { fillView() }.subscribe())
     }
 
     private fun handleTripClicks() {
@@ -33,29 +33,26 @@ class TripsListPresenter(
         disposables.add(trips.getSpaceTrips()
             .skip(1)
             .observeOn(viewScheduler)
-            .doOnNext { showTrips(it, false) }
+            .doOnNext { showTrips(it) }
             .subscribe())
     }
 
-    private fun setupView(isCreatingView: Boolean) {
-        disposables.add(fillView(isCreatingView).subscribe())
+    private fun setupView() {
+        disposables.add(fillView().subscribe())
     }
 
-    private fun fillView(isCreatingView: Boolean): Observable<SpaceTripsResponse> {
+    private fun fillView(): Observable<SpaceTripsResponse> {
         return trips.getSpaceTrips()
             .take(1)
             .observeOn(viewScheduler)
-            .doOnNext { showTrips(it, isCreatingView) }
+            .doOnSubscribe { view.showLoading() }
+            .doOnNext { showTrips(it) }
     }
 
-    private fun showTrips(tripsResponse: SpaceTripsResponse, isCreatingView: Boolean) {
+    private fun showTrips(tripsResponse: SpaceTripsResponse) {
         when (tripsResponse.status) {
             ResponseStatus.OK -> {
-                if (isCreatingView) {
-                    view.showTrips(mapper.map(tripsResponse.trips))
-                } else {
-                    view.restoreTrips(mapper.map(tripsResponse.trips))
-                }
+                view.showTrips(mapper.map(tripsResponse.trips))
             }
             ResponseStatus.ERROR -> view.showGenericError()
             ResponseStatus.NO_NETWORK -> view.showNoNetworkError()

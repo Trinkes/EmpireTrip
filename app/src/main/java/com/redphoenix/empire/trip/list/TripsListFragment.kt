@@ -2,7 +2,6 @@ package com.redphoenix.empire.trip.list
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,6 @@ import javax.inject.Inject
 
 class TripsListFragment : Fragment(), TripsListView {
     companion object {
-        private val TAG = TripsListFragment::class.java.simpleName
-        private const val STATE_KEY = "STATE_KEY"
         fun newInstance(): TripsListFragment {
             return TripsListFragment()
         }
@@ -42,11 +39,10 @@ class TripsListFragment : Fragment(), TripsListView {
 
     private var adapter: ListTripsAdapter? = null
     private lateinit var presenter: TripsListPresenter
-    private var viewRestoreState: Parcelable? = null
     private var tripClicks: PublishSubject<Int> =
         PublishSubject.create()
-    private lateinit var navigator: TripsListNavigator
-    private lateinit var layoutManager: LinearLayoutManager
+    private var navigator: TripsListNavigator? = null
+    private var layoutManager: LinearLayoutManager? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +61,7 @@ class TripsListFragment : Fragment(), TripsListView {
     }
 
     override fun showTripDetails(tripId: Int) {
-        navigator.showTripDetails(tripId)
+        navigator!!.showTripDetails(tripId)
     }
 
     override fun onCreateView(
@@ -79,7 +75,7 @@ class TripsListFragment : Fragment(), TripsListView {
         layoutManager = LinearLayoutManager(view.context)
         list.layoutManager = layoutManager
         list.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
+        val dividerItemDecoration = DividerItemDecoration(context, layoutManager!!.orientation)
         dividerItemDecoration.setDrawable(
             ContextCompat.getDrawable(
                 view.context,
@@ -87,27 +83,12 @@ class TripsListFragment : Fragment(), TripsListView {
             )!!
         )
         list.addItemDecoration(dividerItemDecoration)
-        presenter.present(savedInstanceState == null)
+        presenter.present()
     }
 
-    override fun restoreTrips(trips: List<TripsListView.TripViewEntity>) {
-        adapter!!.setTrips(trips)
-        showView(ViewsGroup.LIST_VIEW)
-        layoutManager.onRestoreInstanceState(viewRestoreState)
+    override fun showLoading() {
+        showView(ViewsGroup.LOADING)
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(STATE_KEY, layoutManager.onSaveInstanceState())
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null) {
-            viewRestoreState = savedInstanceState.getParcelable(STATE_KEY)
-        }
-    }
-
 
     override fun onDestroyView() {
         presenter.stop()
@@ -116,6 +97,8 @@ class TripsListFragment : Fragment(), TripsListView {
 
     override fun onDestroy() {
         adapter = null
+        navigator = null
+        layoutManager = null
         super.onDestroy()
     }
 
@@ -145,22 +128,31 @@ class TripsListFragment : Fragment(), TripsListView {
                 list.visibility = View.VISIBLE
                 generic_error_layout.visibility = View.GONE
                 network_error_layout.visibility = View.GONE
+                loading_layout.visibility = View.GONE
             }
 
             ViewsGroup.GENERIC_ERROR_VIEW -> {
                 list.visibility = View.GONE
                 generic_error_layout.visibility = View.VISIBLE
                 network_error_layout.visibility = View.GONE
+                loading_layout.visibility = View.GONE
             }
             ViewsGroup.NETWORK_ERROR_VIEW -> {
                 list.visibility = View.GONE
                 generic_error_layout.visibility = View.GONE
                 network_error_layout.visibility = View.VISIBLE
+                loading_layout.visibility = View.GONE
+            }
+            ViewsGroup.LOADING -> {
+                list.visibility = View.GONE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.GONE
+                loading_layout.visibility = View.VISIBLE
             }
         }
     }
 
     enum class ViewsGroup {
-        LIST_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW
+        LIST_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW, LOADING
     }
 }
