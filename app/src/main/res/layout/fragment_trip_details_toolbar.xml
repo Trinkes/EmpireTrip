@@ -22,15 +22,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?android:actionBarSize">
 
-            <Space
-                android:id="@+id/pick_up_location_space"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="131dp"
-                android:layout_marginLeft="131dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/pickup_location_image"
                 android:layout_width="155dp"
@@ -43,6 +34,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@mipmap/ic_launcher" />
 
+            <Space
+                android:id="@+id/pick_up_location_space"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                app:layout_constraintStart_toStartOf="@id/drop_off_location_image"
+                app:layout_constraintTop_toTopOf="@+id/drop_off_location_image" />
+
             <ImageView
                 android:id="@+id/drop_off_location_image"
                 android:layout_width="310dp"
@@ -51,6 +51,7 @@
                 android:layout_marginLeft="98dp"
                 android:contentDescription="@string/trip_details_pick_up_image_content_description"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@mipmap/ic_launcher" />
         </androidx.constraintlayout.widget.ConstraintLayout>
