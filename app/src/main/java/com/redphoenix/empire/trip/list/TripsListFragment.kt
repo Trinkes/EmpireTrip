@@ -79,7 +79,7 @@ class TripsListFragment : Fragment(), TripsListView {
         dividerItemDecoration.setDrawable(
             ContextCompat.getDrawable(
                 view.context,
-                R.drawable.center
+                R.drawable.trips_separator
             )!!
         )
         list.addItemDecoration(dividerItemDecoration)
