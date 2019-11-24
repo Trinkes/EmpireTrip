@@ -8,6 +8,7 @@ import com.redphoenix.empire.trip.trips.*
 import dagger.Module
 import io.reactivex.Observable
 import io.reactivex.schedulers.TestScheduler
+import java.util.concurrent.TimeUnit
 
 class TestApplication : EmpireTripApplication() {
     val testScheduler = TestScheduler()
@@ -28,12 +29,13 @@ class TestApplication : EmpireTripApplication() {
                     return Observable.just(
                         SpaceTripsResponse(ResponseStatus.OK, listOf(spaceTrip))
                     )
+                        .delay(2, TimeUnit.SECONDS, testScheduler)
                 }
 
                 override fun getSpaceTrip(tripId: Int): Observable<SpaceTripResponse> {
                     return Observable.just(
                         SpaceTripResponse(ResponseStatus.OK, spaceTrip)
-                    )
+                    ).delay(2, TimeUnit.SECONDS, testScheduler)
                 }
             })
         }

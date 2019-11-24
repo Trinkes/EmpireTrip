@@ -37,6 +37,7 @@ class TripDetailsPresenter(
     private fun fillView(tripId: Int): Observable<SpaceTripResponse> {
         return trips.getSpaceTrip(tripId)
             .observeOn(viewScheduler)
+            .doOnSubscribe { view.showLoading() }
             .doOnNext {
                 showTripDetails(it)
             }

@@ -23,5 +23,6 @@ interface TripDetailsView {
     fun showGenericError()
     fun showNetworkError()
     fun getRetryClick(): Observable<Any>
+    fun showLoading()
 
 }

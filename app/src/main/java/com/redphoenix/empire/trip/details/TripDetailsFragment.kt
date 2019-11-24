@@ -138,6 +138,10 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
         showView(ViewsGroup.TRIP_DETAILS_VIEW)
     }
 
+    override fun showLoading() {
+        showView(ViewsGroup.LOADING_VIEW)
+    }
+
     override fun onDestroyView() {
         presenter.stop()
         super.onDestroyView()
@@ -149,17 +153,26 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
                 trip_details_view.visibility = View.VISIBLE
                 generic_error_layout.visibility = View.GONE
                 network_error_layout.visibility = View.GONE
+                loading_layout.visibility = View.GONE
             }
 
             ViewsGroup.GENERIC_ERROR_VIEW -> {
                 trip_details_view.visibility = View.GONE
                 generic_error_layout.visibility = View.VISIBLE
                 network_error_layout.visibility = View.GONE
+                loading_layout.visibility = View.GONE
             }
             ViewsGroup.NETWORK_ERROR_VIEW -> {
                 trip_details_view.visibility = View.GONE
                 generic_error_layout.visibility = View.GONE
                 network_error_layout.visibility = View.VISIBLE
+                loading_layout.visibility = View.GONE
+            }
+            ViewsGroup.LOADING_VIEW -> {
+                loading_layout.visibility = View.VISIBLE
+                trip_details_view.visibility = View.GONE
+                generic_error_layout.visibility = View.GONE
+                network_error_layout.visibility = View.GONE
             }
         }
     }
@@ -173,6 +186,6 @@ class TripDetailsFragment : Fragment(), TripDetailsView {
     }
 
     enum class ViewsGroup {
-        TRIP_DETAILS_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW
+        TRIP_DETAILS_VIEW, GENERIC_ERROR_VIEW, NETWORK_ERROR_VIEW, LOADING_VIEW
     }
 }

@@ -18,6 +18,11 @@
         layout="@layout/network_error_layout"
         android:visibility="gone" />
 
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/trip_details_view"
         android:layout_width="match_parent"

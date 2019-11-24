@@ -18,6 +18,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -32,6 +33,11 @@ class OpenTripDetailsFlowTest {
         val testScheduler =
             (mActivityTestRule.activity.application as TestApplication).testScheduler
         testScheduler.triggerActions()
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
+        onView(withId(R.id.loading_layout)).check(matches(isDisplayed()))
+        testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+        testScheduler.triggerActions()
+
         onView(
             allOf(
                 withId(R.id.pilot_name),
@@ -71,6 +77,13 @@ class OpenTripDetailsFlowTest {
         constraintLayout.perform(click())
 
         testScheduler.triggerActions()
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
+
+        onView(withId(R.id.loading_layout)).check(matches(isDisplayed()))
+
+        testScheduler.triggerActions()
+        testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+
         val textView3 = onView(
             allOf(
                 withId(R.id.fragment_details_pilot_name), isDisplayed()
