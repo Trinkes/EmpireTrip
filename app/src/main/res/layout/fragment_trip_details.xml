@@ -45,6 +45,8 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_chainStyle="packed"
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -94,7 +96,7 @@
                 app:layout_constraintEnd_toEndOf="@id/fragment_details_vertical_separator"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_details_pilot_avatar_separator" />
 
             <TextView
                 android:id="@+id/fragment_details_pick_up_location_name"
@@ -275,6 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
+                android:isIndicator="true"
                 android:paddingBottom="@dimen/large_margin"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
