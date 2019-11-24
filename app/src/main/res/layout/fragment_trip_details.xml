@@ -60,6 +60,7 @@
                 android:id="@+id/fragment_details_pilot_avatar_separator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/horizontal_separator"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_details_pick_up_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
