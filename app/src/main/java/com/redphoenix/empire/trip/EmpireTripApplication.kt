@@ -10,11 +10,14 @@ open class EmpireTripApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent =
-            DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .build()
+        appComponent = createAppComponent()
 
         appComponent.inject(this)
+    }
+
+    open fun createAppComponent(): AppComponent {
+        return DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

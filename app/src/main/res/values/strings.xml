@@ -19,4 +19,5 @@
     <string name="retry">retry</string>
     <string name="no_network_message">No network Connection</string>
     <string name="no_network_retry_button">retry</string>
+    <string name="fragment_trips_list_screen_title">Last Trips</string>
 </resources>

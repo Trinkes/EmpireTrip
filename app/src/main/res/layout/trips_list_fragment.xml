@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Last Trips"
+        app:title="@string/fragment_trips_list_screen_title"
         android:background="@color/colorPrimary"
         app:titleTextColor="@color/white" />
 

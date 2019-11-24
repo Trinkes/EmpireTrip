@@ -26,11 +26,11 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val context: Context) {
+open class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun providesTrips(tripsApi: TripsApi): Trips {
+    open fun providesTrips(tripsApi: TripsApi): Trips {
         return Trips(Schedulers.io(), NetworkTripsRepository(tripsApi, ApiTripsResponseMapper()))
     }
 

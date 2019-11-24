@@ -12,7 +12,10 @@ deps.di = di
 
 def testing = [:]
 testing.junit = "junit:junit:4.12"
-testing.mockito = "org.mockito:mockito-core:2.15.0"
+testing.mockito = "org.mockito:mockito-core:2.23.0"
+testing.andoridxJunit = "androidx.test.ext:junit:1.1.1"
+testing.espresso = "androidx.test.espresso:espresso-core:3.2.0"
+testing.rules = "androidx.test:rules:1.2.0"
 deps.testing = testing
 
 def kotlin = [:]
