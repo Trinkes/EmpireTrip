@@ -2,11 +2,7 @@
     <string name="app_name">Empire Trips</string>
     <string name="item_list_arrow_content_description">Trip direction</string>
     <string name="item_list_pilot_icon_content_description">Pilot photo</string>
-    <string name="generic_error">Beautiful generic error</string>
-    <string name="no_network_error">Beautiful network error</string>
     <string name="trip_details_pick_up_image_content_description">Pickup location image</string>
-    <string name="trip_details_drop_off_image_content_description">Drop off location image</string>
-    <string name="fragment_details_pilot_icon_content_description">@string/item_list_pilot_icon_content_description</string>
     <string name="fragment_details_pick_up_label">Departure</string>
     <string name="fragment_details_drop_off_label">Arrival</string>
     <string name="fragment_details_distance_label">Trip Distance</string>
