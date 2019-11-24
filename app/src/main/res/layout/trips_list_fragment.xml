@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Last Trips"
+        android:background="@color/colorPrimary"
         app:titleTextColor="@color/white" />
 
     <include
