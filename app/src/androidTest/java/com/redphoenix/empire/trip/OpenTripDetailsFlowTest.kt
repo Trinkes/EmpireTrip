@@ -30,7 +30,7 @@ class OpenTripDetailsFlowTest {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun mainActivityTest() {
+    fun openTripDetailsFlowTest() {
         val testScheduler =
             (mActivityTestRule.activity.application as TestApplication).testScheduler
         testScheduler.triggerActions()
