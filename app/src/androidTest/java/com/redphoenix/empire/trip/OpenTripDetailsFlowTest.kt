@@ -15,6 +15,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,12 +53,17 @@ class OpenTripDetailsFlowTest {
             )
         ).check(matches(withText(pilotName)))
 
-        val textView2 = onView(
+        onView(
             allOf(
-                withText(R.string.fragment_trips_list_screen_title), isDisplayed()
+                withText("Last Trips"), childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                        0
+                    ),
+                    0
+                )
             )
-        )
-        textView2.check(matches(withText(R.string.fragment_trips_list_screen_title)))
+        ).check(matches(isDisplayed()))
 
         val constraintLayout = onView(
             allOf(

@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.redphoenix.empire.trip.EmpireTripApplication
 import com.redphoenix.empire.trip.R
-import com.redphoenix.empire.trip.TripsListNavigator
 import com.redphoenix.empire.trip.components.getService
 import com.redphoenix.empire.trip.trips.Trips
+import com.redphoenix.empire.trip.trips.TripsListNavigator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
